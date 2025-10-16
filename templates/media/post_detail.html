@@ -1,0 +1,167 @@
+{% extends "base/base.html" %} {% load static %} {% block main %}
+<main>
+	<!-- ===== Blog Single Start ===== -->
+	<section class="pt-34 pb-17.5">
+		<div class="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
+			<div class="flex flex-wrap gap-7.5">
+				<!-- Blog Details Start -->
+				<div class="xl:max-w-[770px] w-full">
+					<img
+						src="{{post.image.url}}"
+						alt="blog"
+						class="w-full mb-10"
+					/>
+
+					<h1
+						class="font-bold text-2xl sm:text-4xl lg:text-custom-2 text-dark mb-5.5"
+					>
+						{{post.title}}
+					</h1>
+
+					<div
+						class="flex flex-col sm:flex-row sm:items-center gap-3"
+					>
+						<a
+							href="author.html"
+							class="flex w-8.5 h-8.5 rounded-full overflow-hidden"
+						>
+							<img src="images/user-02.png" alt="user" />
+						</a>
+
+						<div class="flex flex-wrap items-center gap-4">
+							<div class="flex flex-wrap items-center gap-2.5">
+								<h4 class="text-custom-sm">
+									<a href="author.html">{{post.user}}</a>
+								</h4>
+								<span
+									class="flex w-[3px] h-[3px] rounded-full bg-dark-2"
+								></span>
+								<p class="text-custom-sm">
+									{{post.created_at}}
+								</p>
+								<span
+									class="flex w-[3px] h-[3px] rounded-full bg-dark-2"
+								></span>
+							</div>
+
+							<a
+								href="category.html"
+								class="inline-flex text-teal-dark bg-teal/[0.08] font-medium text-custom-sm py-1 px-3 rounded-full"
+							>
+								{{post.get_location_display}}
+							</a>
+						</div>
+					</div>
+				</div>
+				<!-- Blog Details End -->
+
+				<!-- Blog Sidebar Start -->
+				<div class="max-w-[370px] w-full">
+					<div class="flex flex-col gap-10">
+						<!-- Recent Post Box Start -->
+						<div
+							class="max-w-[370px] w-full rounded-[10px] border border-gray-3 p-4 sm:p-7.5 lg:p-10"
+						>
+							<h4
+								class="font-semibold text-custom-4 text-dark mb-7.5"
+							>
+                                Comments
+							</h4>
+
+							<div class="flex flex-col gap-7.5">
+
+                                {% for comment in comments %}
+                                
+								<a
+									href="blog"
+									class="group flex gap-6.5"
+								>
+									<div
+										class="max-w-[70px] w-full h-17.5 rounded-full"
+									>
+										<img
+											src="{{comment.user.profile_picture.url}}"
+											alt="blog"
+										/>
+									</div>
+
+									<div>
+										<h5
+											class="font-medium text-sm text-dark duration-200 ease-in mb-1.5 group-hover:text-primary"
+										>
+											{{comment.content}}
+										</h5>
+
+										<div class="flex items-center gap-2">
+											<p class="text-custom-xs">
+												{{comment.user.usn}}
+											</p>
+											<span
+												class="flex w-[3px] h-[3px] rounded-full bg-dark-2"
+											></span>
+											<p class="text-custom-xs">
+												{{comment.created_at}}
+											</p>
+										</div>
+									</div>
+								</a>
+                                {% endfor %}
+								<!-- post item -->
+
+							
+
+							</div>
+						</div>
+						<!-- Recent Post Box End -->
+
+						<!-- Explore Topics Box Start -->
+	
+						<!-- Explore Topics Box End -->
+
+						<!-- Newsletter Box Start -->
+						<div
+							class="max-w-[370px] w-full rounded-[10px] border border-gray-3 p-4 sm:p-7.5 lg:p-10"
+						>
+							<h4
+								class="font-semibold text-custom-4 text-dark mb-7.5"
+							>
+								Upload a Comment
+							</h4>
+							<form
+                            method="POST"
+			action="{% url 'add_comment' post.pk %}">
+                                {% csrf_token %}
+								<textarea
+									
+									placeholder="Enter your Email"
+									class="rounded-md border border-gray-3 bg-white placeholder:text-dark-5 w-full py-3.5 px-5 outline-none text-center focus:shadow-input focus:ring-2 focus:ring-dark-4/20 focus:border-transparent"
+                                    name="content"
+				rows="3"
+				placeholder="Add a comment"
+				required
+                                    ></textarea>
+								<button
+                                type="submit"
+									class="font-medium rounded-md text-white bg-dark flex justify-center text-center w-full py-3 px-5 hover:opacity-90 transition-all duration-200 mt-4"
+								>
+									Comment
+								</button>
+							</form>
+
+							<p class="text-custom-sm mt-5 text-center">
+								Dont comment anything that is inappropriate
+								<a href="privacy-policy.html" class="text-dark"
+									>Privacy Policy</a
+								>
+							</p>
+						</div>
+						<!-- Newsletter Box End -->
+					</div>
+				</div>
+				<!-- Blog Sidebar End -->
+			</div>
+		</div>
+	</section>
+</main>
+
+{% endblock main %}

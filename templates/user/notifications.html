@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+
+
+
+
+{% block main %}
+
+<div class="mb-12.5 text-center">
+  <h2 class="text-dark mb-3.5 text-2xl font-bold sm:text-4xl xl:text-heading-3">
+    Notifications
+  </h2>
+  <p>You Have some Rapport Requests</p>
+</div>
+
+
+
+{% for rapport_request in requests %}
+
+
+    <div class="border border-gray-3 rounded-[20px] bg-gray p-5 group-hover:bg-white group-hover:drop-shadow-1 group-hover:-translate-y-2 transition-all">
+      <div class="flex flex-wrap items-center gap-8">
+        <div class="w-25 h-25 rounded-full overflow-hidden">
+          <img src="{{rapport_request.by_user.profile_picture.url}}" alt="user">
+        </div>
+
+        <div>
+          <h3 class="font-semibold text-custom-xl text-dark mb-1">
+            {{rapport_request.by_user.name}}
+          </h3>
+          {% if rapport_request.subject %}
+        <p>{{rapport_request.subject}}</p>
+    {% endif %}
+       
+        </div>
+        <a href="{% url 'accept_rapport' rapport_request.pk %}">
+        <button class="inline-flex justify-center font-medium text-dark border border-dark rounded-md py-3 px-7.5 hover:bg-dark hover:text-white ease-in duration-200">
+          Accept
+        </button></a>
+        <a href="{% url 'reject_rapport' rapport_request.pk %}">
+        <button class="inline-flex justify-center font-medium text-dark border border-dark rounded-md py-3 px-7.5 hover:bg-dark hover:text-white ease-in duration-200">
+          Reject
+        </button>
+        </a>
+      </div>
+    </div>
+
+{% endfor %}
+{% endblock main %}
+
